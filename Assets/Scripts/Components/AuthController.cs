@@ -33,15 +33,23 @@ public class AuthController : MonoBehaviour
 
     public async void Execute()
     {
+        if (string.IsNullOrEmpty(Username.text))
+        {
+            DialogController.Show("啊哦...", "用户名不能放空哦。");
+            return;
+        }
+        if (string.IsNullOrEmpty(Password.text))
+        {
+            DialogController.Show("啊哦...", "密码不能放空哦。");
+            return;
+        }
         if (waiting)
         {
             return;
         }
         waiting = true;
         Loading.SetActive(true);
-        MessageText.text = "";
         BtnText.text = mode == AuthMode.Login ? "登录中..." : "注册中...";
-        await Task.Delay(1500); // 发疯
         var url = mode == AuthMode.Login ? "login" : "register";
         var res = await Server.Post<AuthResponse>(url, new AuthRequest()
         {
@@ -50,12 +58,11 @@ public class AuthController : MonoBehaviour
         });
         if (res.status == "succeed")
         {
-            Debug.Log("成功！！！");
-            // todo
+            DialogController.Show("注册成功", "您已注册成功，可以前往登录了。");
         }
         else
         {
-            MessageText.text = res.message;
+            DialogController.Show((mode == AuthMode.Login ? "登录" : "注册") + "失败", res.message);
         }
         BtnText.text = mode == AuthMode.Login ? "登录" : "注册";
         waiting = false;
