@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class AuthController : MonoBehaviour
 {
+    public static string Token;
+    
     private enum AuthMode
     {
         Login, Register
@@ -58,6 +60,15 @@ public class AuthController : MonoBehaviour
         });
         if (res.status == "succeed")
         {
+            if (mode == AuthMode.Login)
+            {
+                Token = res.token;
+                DialogController.Show("登录成功", $"欢迎回来，{Username.text}！", () =>
+                {
+                    CanvasManager.SwitchCanvas("MainCanvas");
+                });
+                return;
+            }
             DialogController.Show("注册成功", "您已注册成功，可以前往登录了。");
         }
         else
