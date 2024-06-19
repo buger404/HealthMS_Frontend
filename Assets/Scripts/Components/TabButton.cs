@@ -57,6 +57,10 @@ public class TabButton : MonoBehaviour
 
     public void Active()
     {
+        if (lstSelected == this)
+        {
+            return;
+        }
         animator.Transition(UIState.Active);
         BindPanel.SetActive(true);
         lstSelected?.Deactive();

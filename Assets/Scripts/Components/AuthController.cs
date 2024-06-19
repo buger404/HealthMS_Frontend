@@ -63,6 +63,9 @@ public class AuthController : MonoBehaviour
             if (mode == AuthMode.Login)
             {
                 Token = res.token;
+                var info = await Server.Get<UserModel>("users/info", ("token", Token));
+                Debug.Log(info.money + "," + info.partTime);
+                ChaperoneController.Instance.LoadHospitals();
                 DialogController.Show("登录成功", $"欢迎回来，{Username.text}！", () =>
                 {
                     CanvasManager.SwitchCanvas("MainCanvas");
