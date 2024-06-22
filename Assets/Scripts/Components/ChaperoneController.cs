@@ -9,6 +9,8 @@ public class ChaperoneController : MonoBehaviour, IBootstrap
 {
     public static ChaperoneController Instance;
     public static List<HospitalModel> Hospitals = new();
+    public static List<ChaperoneModel> Chaperones = new();
+    
     public TMP_Dropdown HospitalDropdown;
     public MilListView ListView, SortMode;
     public void Bootstrap()
@@ -39,15 +41,10 @@ public class ChaperoneController : MonoBehaviour, IBootstrap
     public async void LoadChaperones()
     {
         var id = HospitalDropdown.value == 0 ? -1 : Hospitals[HospitalDropdown.value - 1].id;
-        var chaperones = await Server.Get<ChaperoneModel[]>("chaperone/list", 
+        Chaperones = (await Server.Get<ChaperoneModel[]>("chaperone/list", 
                 ("token", AuthController.Token),
                 ("hospital", id.ToString())
-            );
-        ListView.Clear();
-        foreach (var c in chaperones)
-        {
-            ListView.Add(c);
-        }
-        SortModeItem.SortChaperone();
+            )).ToList();
+        SortModeItem.SortChaperoneAndDisplay();
     }
 }

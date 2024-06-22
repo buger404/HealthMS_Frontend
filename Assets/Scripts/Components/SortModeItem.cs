@@ -26,7 +26,7 @@ public class SortModeItem : MilListViewItem
 
     public override void OnSelect(PointerEventData eventData)
     {
-        SortChaperone(Index);
+        SortChaperoneAndDisplay(Index);
     }
 
     protected override void OnInitialize()
@@ -52,13 +52,10 @@ public class SortModeItem : MilListViewItem
 
     }
 
-    public static void SortChaperone(int index = -1)
+    public static void SortChaperoneAndDisplay(int index = -1)
     {
-        if (ChaperoneController.Instance.SortMode.SelectedIndex <= 0)
-        {
-            return;
-        }
-        var items = ChaperoneController.Instance.ListView.Items.Cast<ChaperoneModel>().ToList();
+        var items = ChaperoneController.Chaperones.ToList();
+
         switch (index == -1 ? ChaperoneController.Instance.SortMode.SelectedIndex : index)
         {
             case 1:
