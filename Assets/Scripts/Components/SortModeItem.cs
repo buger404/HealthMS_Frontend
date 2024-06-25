@@ -60,6 +60,7 @@ public class SortModeItem : MilListViewItem
         {
             case 1:
                 // 评分最高
+                items.Sort((x, y) => y.GetRating().CompareTo(x.GetRating()));
                 break;
             case 2:
                 // 价格最低
@@ -67,7 +68,7 @@ public class SortModeItem : MilListViewItem
                 break;
             case 3:
                 // 最多人约
-                items.Sort((x, y) => x.reserved.CompareTo(y.reserved));
+                items.Sort((x, y) => y.reserved.CompareTo(x.reserved));
                 break;
         }
 

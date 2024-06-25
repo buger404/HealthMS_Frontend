@@ -3,7 +3,7 @@
 [Serializable]
 public class ChaperoneModel
 {
-    public int id;
+    public string id;
     public int hospital;
     public string name;
     public int startHour;
@@ -11,4 +11,5 @@ public class ChaperoneModel
     public float price;
     public string phone;
     public int reserved;
+    public int praised;
 }

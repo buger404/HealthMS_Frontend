@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 
 public class ChaperoneItem : MilListViewItem
 {
-    public TMP_Text Name, Price, Hospital, Phone, Reserved, WorkHour;
+    public TMP_Text Name, Price, Hospital, Reserved, WorkHour, Rating;
     
     protected override IEnumerable<MilStateParameter> ConfigDefaultState()
     {
@@ -47,9 +47,9 @@ public class ChaperoneItem : MilListViewItem
         Name.text = "陪诊师 · " + data.name;
         Hospital.text = ChaperoneController.Hospitals.Find(x => x.id == data.hospital).name;
         Price.text = "￥" + data.price.ToString("F2");
-        Phone.text = data.phone;
         WorkHour.text = $"{data.startHour}:00 ~ {data.endHour}:00";
         Reserved.text = data.reserved + "人预约过";
+        Rating.text = data.GetRating().ToString("F1") + "分";
     }
 
     public override void AdjustAppearance(float pos)
