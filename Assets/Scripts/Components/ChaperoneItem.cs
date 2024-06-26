@@ -56,4 +56,9 @@ public class ChaperoneItem : MilListViewItem
     {
 
     }
+
+    public void ShowDetail()
+    {
+        ChaperoneView.Instance.Show((Binding as ChaperoneModel)!);
+    }
 }
