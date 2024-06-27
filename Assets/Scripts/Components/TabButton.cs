@@ -62,6 +62,16 @@ public class TabButton : MonoBehaviour
             return;
         }
         animator.Transition(UIState.Active);
+
+        if (BindPanel.name == "ProfilePage")
+        {
+            ProfileView.Instance.UpdateView();
+        }
+        if (BindPanel.name == "HomePage")
+        {
+            ChaperoneController.Instance.LoadChaperones();
+        }
+        
         BindPanel.SetActive(true);
         lstSelected?.Deactive();
         lstSelected = this;

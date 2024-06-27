@@ -2,10 +2,10 @@
 {
     public static double GetRating(this ChaperoneModel chaperone)
     {
-        if (chaperone.reserved == 0)
+        if (chaperone.finished == 0)
         {
             return 10.0;
         }
-        return chaperone.praised * 1.0 / chaperone.reserved * 10.0;
+        return chaperone.praised * 1.0 / chaperone.finished * 10.0;
     }
 }

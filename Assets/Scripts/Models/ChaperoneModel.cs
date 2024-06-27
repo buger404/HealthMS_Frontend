@@ -12,4 +12,5 @@ public class ChaperoneModel
     public string phone;
     public int reserved;
     public int praised;
+    public int finished;
 }

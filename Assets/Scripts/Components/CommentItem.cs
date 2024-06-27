@@ -50,14 +50,14 @@ public class CommentItem : MilListViewItem
         Title.text = data.username + "  " + (data.praised ? "<color=#EB4450>推荐此陪诊师" : "<b>不推荐此陪诊师");
         Content.text = data.comment;
         LikeCount.text = data.likes.ToString();
-        SendTime.text = data.sendTime.ToString("yyyy.MM.dd");
+        SendTime.text = data.sendTime.ToString("yyyy.MM.dd HH:mm");
         LikeBtnBack.color = data.liked ? ColorUtils.RGB(235, 68, 80) : ColorUtils.RGB(128, 128, 128);
     }
 
     public async void Like()
     {
         var data = (Binding as CommentModel)!;
-        var res = await Server.Post<StatusModel>("/feedback/" + (data.liked ? "unlike" : "like"),
+        var res = await Server.Post<StatusModel>("/feedback/" + (data.liked ? "unlike" : "like"), null,
             ("token", AuthController.Token), ("feedback", data.id));
         
         if (res.status == "failed")

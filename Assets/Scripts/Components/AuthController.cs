@@ -70,6 +70,10 @@ public class AuthController : MonoBehaviour
                 {
                     CanvasManager.SwitchCanvas("MainCanvas");
                 });
+                
+                BtnText.text = mode == AuthMode.Login ? "登录" : "注册";
+                waiting = false;
+                Loading.SetActive(false);
                 return;
             }
             DialogController.Show("注册成功", "您已注册成功，可以前往登录了。");
