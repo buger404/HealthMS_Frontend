@@ -8,4 +8,5 @@ public class ReservationModel
     public string username;
     public decimal price;
     public ChaperoneModel chaperoneInfo;
+    public DateTime time;
 }

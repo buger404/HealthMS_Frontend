@@ -23,6 +23,7 @@ public class ChaperoneView : MonoBehaviour, IBootstrap
 
     public static ChaperoneModel CurrentChaperone;
 
+    public TMP_Dropdown Date;
     public TMP_Text[] SortBtn;
     public TMP_Text Name, Phone, Hospital, Price, Money, BuyBtnText, Rate;
     public Image BuyBtnBack, Panel;
@@ -38,6 +39,17 @@ public class ChaperoneView : MonoBehaviour, IBootstrap
     private CommentSortMethod CommentSorting = CommentSortMethod.MostLike;
     
     private MilInstantAnimator showAnimator, hideAnimator;
+
+    private static Dictionary<DayOfWeek, string> WeekDict = new()
+    {
+        [DayOfWeek.Sunday] = "周日",
+        [DayOfWeek.Monday] = "周一",
+        [DayOfWeek.Tuesday] = "周二",
+        [DayOfWeek.Wednesday] = "周三",
+        [DayOfWeek.Thursday] = "周四",
+        [DayOfWeek.Friday] = "周五",
+        [DayOfWeek.Saturday] = "周六"
+    };
     
     public void Bootstrap()
     {
@@ -91,11 +103,13 @@ public class ChaperoneView : MonoBehaviour, IBootstrap
 
         if (data.money >= chaperone.price && string.IsNullOrEmpty(order.id) && data.partTime != chaperone.id)
         {
+            Date.gameObject.SetActive(true);
             BuyBtnBack.color = ColorUtils.RGB(235, 68, 80);
             BuyBtnText.text = "立即下单预约";
         }
         else
         {
+            Date.gameObject.SetActive(false);
             BuyBtnBack.color = ColorUtils.RGB(128, 128, 128);
             if (!string.IsNullOrEmpty(order.id))
             {
@@ -118,6 +132,18 @@ public class ChaperoneView : MonoBehaviour, IBootstrap
         SortAndDisplayComments();
         
         NoCommentText.SetActive(CommentList.Items.Count == 0);
+
+        var now = DateTime.Now;
+        Date.options.Clear();
+        Date.options.Add(new TMP_Dropdown.OptionData($"明天（{WeekDict[(now + TimeSpan.FromDays(1)).DayOfWeek]}）"));
+        Date.options.Add(new TMP_Dropdown.OptionData($"后天（{WeekDict[(now + TimeSpan.FromDays(2)).DayOfWeek]}）"));
+        Date.options.Add(new TMP_Dropdown.OptionData($"大后天（{WeekDict[(now + TimeSpan.FromDays(3)).DayOfWeek]}）"));
+        for (var i = 4; i <= 14; i++)
+        {
+            var date = now + TimeSpan.FromDays(i);
+            Date.options.Add(new TMP_Dropdown.OptionData($"{date:M月d日}（{WeekDict[date.DayOfWeek]}）"));
+        }
+        Date.value = 0;
         
         Canvas.SetActive(true);
         hideAnimator.Reset();
@@ -162,14 +188,17 @@ public class ChaperoneView : MonoBehaviour, IBootstrap
 
     public async void Order()
     {
+        // 2007-12-03T10:15:30
         var response = await Server.Post<StatusModel>("/reservation/submit", null,
-            ("token", AuthController.Token), ("chaperone", CurrentChaperone.id));
+            ("token", AuthController.Token), ("chaperone", CurrentChaperone.id),
+            ("date", (DateTime.Now + TimeSpan.FromDays(Date.value + 1)).ToString("yyyy-MM-ddTHH:mm:ss")));
         if (response.status == "failed")
         {
             DialogController.Show("预约失败", response.message);
             return;
         }
         
+        Date.gameObject.SetActive(false);
         BuyBtnBack.color = ColorUtils.RGB(128, 128, 128);
         BuyBtnText.text = "已预约";
         

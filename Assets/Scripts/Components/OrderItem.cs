@@ -44,7 +44,7 @@ public class OrderItem : MilListViewItem
     public override void UpdateAppearance()
     {
         var data = (Binding as ReservationModel)!;
-        Title.text = "陪诊师 · " + data.chaperoneInfo.name;
+        Title.text = "陪诊师 · " + data.chaperoneInfo.name + $"（{data.time:M月d日}）";
         Hospital.text = ChaperoneController.Hospitals.Find(x => x.id == data.chaperoneInfo.hospital).name
                         + $"  {data.chaperoneInfo.startHour}:00 ~ {data.chaperoneInfo.endHour}:00";
         Phone.text = data.chaperoneInfo.phone;

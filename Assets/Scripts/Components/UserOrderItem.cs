@@ -43,7 +43,7 @@ public class UserOrderItem : MilListViewItem
     {
         var data = (Binding as ReservationModel)!;
         Username.text = data.username;
-        Price.text = $"￥{data.price:F2}";
+        Price.text = $"{data.time:yyyy.MM.dd}   <b>￥{data.price:F2}";
     }
 
     public override void AdjustAppearance(float pos)
