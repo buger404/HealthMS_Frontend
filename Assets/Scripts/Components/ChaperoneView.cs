@@ -89,7 +89,7 @@ public class ChaperoneView : MonoBehaviour, IBootstrap
         var order = await Server.Get<StatusModel>("/chaperone/reserved",
             ("token", AuthController.Token), ("chaperone", CurrentChaperone.id));
 
-        if (data.money >= chaperone.price && string.IsNullOrEmpty(order.id))
+        if (data.money >= chaperone.price && string.IsNullOrEmpty(order.id) && data.partTime != chaperone.id)
         {
             BuyBtnBack.color = ColorUtils.RGB(235, 68, 80);
             BuyBtnText.text = "立即下单预约";
@@ -97,7 +97,18 @@ public class ChaperoneView : MonoBehaviour, IBootstrap
         else
         {
             BuyBtnBack.color = ColorUtils.RGB(128, 128, 128);
-            BuyBtnText.text = string.IsNullOrEmpty(order.id) ? "余额不足" : "已预约";
+            if (!string.IsNullOrEmpty(order.id))
+            {
+                BuyBtnText.text = "已预约";
+            }
+            else if (data.partTime == chaperone.id)
+            {
+                BuyBtnText.text = "不能预约自己";
+            }
+            else
+            {
+                BuyBtnText.text = "余额不足";
+            }
         }
 
         Comments = await Server.Get<CommentModel[]>("/feedback/list",
