@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TabButton : MonoBehaviour
+public class TabButton : MonoBehaviour, IBootstrap
 {
     public enum UIState
     {
@@ -26,7 +26,7 @@ public class TabButton : MonoBehaviour
 
     private MilStateAnimator animator = new();
     
-    private void Awake()
+    public void Bootstrap()
     {
         Buttons.Add(this);
         animator.AddState(UIState.Deactive, 0.25f,
