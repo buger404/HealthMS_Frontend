@@ -364,8 +364,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 531, y: -37}
-  m_SizeDelta: {x: 182.23, y: 57.51}
+  m_AnchoredPosition: {x: 387.12, y: -37}
+  m_SizeDelta: {x: 469.97, y: 57.51}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &47533564
 MonoBehaviour:
@@ -7132,6 +7132,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &904349384 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1307298159212292734, guid: 305b16d288347844a9f3faaea0348cfd, type: 3}
+  m_PrefabInstance: {fileID: 5841956555094210443}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a300d9de117638242aa1d89b7ea040e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &912682245
 GameObject:
   m_ObjectHideFlags: 0
@@ -12563,6 +12574,7 @@ MonoBehaviour:
   MessageText: {fileID: 14882336}
   BtnText: {fileID: 1939611634046394279}
   SwitchBtn: {fileID: 689259450}
+  HomePageBtn: {fileID: 904349384}
   Loading: {fileID: 1708262200}
 --- !u!1 &1536534388
 GameObject:
@@ -12751,6 +12763,7 @@ MonoBehaviour:
   MessageText: {fileID: 0}
   BtnText: {fileID: 0}
   SwitchBtn: {fileID: 0}
+  HomePageBtn: {fileID: 0}
   Loading: {fileID: 0}
 --- !u!114 &1563915930
 MonoBehaviour:
@@ -12876,6 +12889,7 @@ MonoBehaviour:
   MessageText: {fileID: 0}
   BtnText: {fileID: 0}
   SwitchBtn: {fileID: 0}
+  HomePageBtn: {fileID: 0}
   Loading: {fileID: 0}
 --- !u!114 &1576584773
 MonoBehaviour:

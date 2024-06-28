@@ -15,6 +15,8 @@ public class AuthController : MonoBehaviour
     
     public TMP_InputField Username, Password;
     public TMP_Text MessageText, BtnText, SwitchBtn;
+
+    public TabButton HomePageBtn;
     
     public GameObject Loading;
 
@@ -66,6 +68,7 @@ public class AuthController : MonoBehaviour
                 var info = await Server.Get<UserModel>("users/info", ("token", Token));
                 Debug.Log(info.money + "," + info.partTime);
                 ChaperoneController.Instance.LoadHospitals();
+                HomePageBtn.Active();
                 DialogController.Show("登录成功", $"欢迎回来，{Username.text}！", () =>
                 {
                     CanvasManager.SwitchCanvas("MainCanvas");
