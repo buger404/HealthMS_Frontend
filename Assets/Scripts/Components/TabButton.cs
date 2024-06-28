@@ -71,6 +71,10 @@ public class TabButton : MonoBehaviour
         {
             ChaperoneController.Instance.LoadChaperones();
         }
+        if (BindPanel.name == "PartTimePage")
+        {
+            PartTimeView.Instance.RefreshPage();
+        }
         
         BindPanel.SetActive(true);
         lstSelected?.Deactive();

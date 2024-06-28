@@ -57,7 +57,7 @@ public class CProfileView : MonoBehaviour, IBootstrap
         var user = await Server.Get<UserModel>("users/info", ("token", AuthController.Token));
         EditMode = !string.IsNullOrEmpty(user.partTime);
         LeaveBtn.SetActive(EditMode);
-        SubmitBtnText.text = EditMode ? "修改陪诊师信息" : "加入陪诊师兼职！";
+        SubmitBtnText.text = EditMode ? "确认陪诊师信息" : "加入陪诊师兼职！";
         
         Hospital.options.Clear();
         foreach (var hospital in ChaperoneController.Hospitals)
@@ -91,6 +91,8 @@ public class CProfileView : MonoBehaviour, IBootstrap
             DialogController.Show("失败", res.message);
             return;
         }
+        
+        PartTimeView.Instance.RefreshPage();
         
         DialogController.Show("成功", res.message);
         hideAnimator.Play();
@@ -127,6 +129,8 @@ public class CProfileView : MonoBehaviour, IBootstrap
             DialogController.Show("失败", res.message);
             return;
         }
+        
+        PartTimeView.Instance.RefreshPage();
         
         DialogController.Show("成功", res.message);
         hideAnimator.Play();
